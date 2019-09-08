@@ -1,0 +1,50 @@
+﻿@model WebAtividadeEntrevista.Models.BeneficiarioModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Beneficiario</title>
+</head>
+<body>
+    <div>
+        <h4>BeneficiarioModel</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.IdCliente)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IdCliente)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Cpf)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
