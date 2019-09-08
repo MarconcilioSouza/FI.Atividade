@@ -171,32 +171,34 @@ namespace WebAtividadeEntrevista.Controllers
         }
 
         [HttpGet]
-        public JsonResult Beneficiario(int? id)
+        public ActionResult Beneficiario(int? id)
         {
             if (id == null)
             {
-                return Json(new { Result = "ERROR", Message = "Id cliente não localizado!" });
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             BoBeneficiario bo = new BoBeneficiario();
 
-            var beneficiarios = new List<FI.AtividadeEntrevista.DML.Beneficiario>()
+            var beneficiarios = new List<BeneficiarioModel>()
             {
-                new FI.AtividadeEntrevista.DML.Beneficiario()
+                new BeneficiarioModel()
             {
                 Cpf = "3243432",
                 IdCliente = id.Value,
                 Nome="teste",
-                
             } };
 
-            return Json(new { Result = "OK", Records = beneficiarios });
+            if (beneficiarios == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("Beneficiario", beneficiarios);
         }
 
         private string RemoverNaoDigitos(string texto)
         {
             return new string(texto.ToCharArray()
                              .Where(c => char.IsDigit(c)).ToArray());
-        }        
+        }
     }
 }
