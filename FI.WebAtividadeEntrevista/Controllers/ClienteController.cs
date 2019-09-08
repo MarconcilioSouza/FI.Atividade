@@ -177,22 +177,90 @@ namespace WebAtividadeEntrevista.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BoBeneficiario bo = new BoBeneficiario();
 
-            var beneficiarios = new List<BeneficiarioModel>()
-            {
-                new BeneficiarioModel()
-            {
-                Cpf = "3243432",
-                IdCliente = id.Value,
-                Nome="teste",
-            } };
+            BoBeneficiario bo = new BoBeneficiario();
+            var beneficiarios = bo.Listar(id.Value);
 
             if (beneficiarios == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("Beneficiario", beneficiarios);
+
+            List<BeneficiarioModel> model = null;
+
+            if (beneficiarios != null)
+            {
+                model = new List<BeneficiarioModel>();
+                foreach (var beneficiario in beneficiarios)
+                {
+                    model.Add(new BeneficiarioModel()
+                    {
+                        Id = beneficiario.Id,
+                        Cpf = beneficiario.Cpf,
+                        IdCliente = beneficiario.IdCliente,
+                        Nome = beneficiario.Nome,
+                    });
+                }
+            }
+
+            return PartialView("Beneficiario", model);
+        }
+
+        [HttpGet]
+        public ActionResult EditBeneficiario(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            BoBeneficiario bo = new BoBeneficiario();
+            var beneficiarios = bo.Listar(id.Value);
+
+            if (beneficiarios == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<BeneficiarioModel> model = null;
+
+            if (beneficiarios != null)
+            {
+                model = new List<BeneficiarioModel>();
+                foreach (var beneficiario in beneficiarios)
+                {
+                    model.Add(new BeneficiarioModel()
+                    {
+                        Id = beneficiario.Id,
+                        Cpf = beneficiario.Cpf,
+                        IdCliente = beneficiario.IdCliente,
+                        Nome = beneficiario.Nome,
+                    });
+                }
+            }
+
+            return PartialView("Beneficiario", model);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteBeneficiario(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            BoBeneficiario bo = new BoBeneficiario();
+            var beneficiarioExiste = bo.Consultar(id.Value);
+
+            if (beneficiarioExiste == null)
+            {
+                return HttpNotFound();
+            }
+
+            bo.Excluir(id.Value);
+
+            return RedirectToAction("Alterar", new { id = beneficiarioExiste.IdCliente });
         }
 
         private string RemoverNaoDigitos(string texto)

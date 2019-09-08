@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using FI.AtividadeEntrevista.DML;
 
 namespace FI.AtividadeEntrevista.DAL
 {
@@ -32,7 +34,7 @@ namespace FI.AtividadeEntrevista.DAL
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
-            parametros.Add(new System.Data.SqlClient.SqlParameter("Id", Id));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("ID", Id));
 
             DataSet ds = base.Consultar("FI_SP_ConsBeneficiario", parametros);
             List<DML.Beneficiario> beneficiario = Converter(ds);
@@ -59,7 +61,7 @@ namespace FI.AtividadeEntrevista.DAL
         /// <summary>
         /// Lista todos os Beneficiarios
         /// </summary>
-        internal List<DML.Beneficiario> Listar(int idCliente)
+        internal List<DML.Beneficiario> Listar(long idCliente)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
@@ -89,7 +91,7 @@ namespace FI.AtividadeEntrevista.DAL
         /// <summary>
         /// Excluir Beneficiario
         /// </summary>
-        /// <param name="cliente">Objeto de Beneficiario</param>
+        /// <param name="Beneficiario">Objeto de Beneficiario</param>
         internal void Excluir(long Id)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
@@ -110,6 +112,7 @@ namespace FI.AtividadeEntrevista.DAL
                     beneficiario.Id = row.Field<long>("ID");
                     beneficiario.Nome = row.Field<string>("NOME");
                     beneficiario.Cpf = row.Field<string>("CPF");
+                    beneficiario.IdCliente = row.Field<long>("IDCLIENTE");
                     lista.Add(beneficiario);
                 }
             }

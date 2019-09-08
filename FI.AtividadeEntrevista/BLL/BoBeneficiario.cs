@@ -11,10 +11,28 @@ namespace FI.AtividadeEntrevista.BLL
         /// <summary>
         /// Lista os clientes
         /// </summary>
-        public List<DML.Beneficiario> Listar(int idCliente)
+        public List<DML.Beneficiario> Listar(long idCliente)
         {
             DAL.DaoBeneficiario beneficiario = new DAL.DaoBeneficiario();
             return beneficiario.Listar(idCliente);
+        }
+
+        /// <summary>
+        /// Excluir beneficiario
+        /// </summary>
+        public void Excluir(long idBeneficiario)
+        {
+            DAL.DaoBeneficiario beneficiario = new DAL.DaoBeneficiario();
+            beneficiario.Excluir(idBeneficiario);
+        }
+
+        /// <summary>
+        /// Consultar beneficiario
+        /// </summary>
+        public DML.Beneficiario Consultar(long idBeneficiario)
+        {
+            DAL.DaoBeneficiario beneficiario = new DAL.DaoBeneficiario();
+           return beneficiario.Consultar(idBeneficiario);
         }
     }
 }

@@ -1,36 +1,60 @@
 ﻿@model  IEnumerable<WebAtividadeEntrevista.Models.BeneficiarioModel>
 
-    <form id="formBeneficiario" method="post">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Beneficiários</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <input type="hidden" id="IdCliente" name="IdCliente" value="  IdCliente  ">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="Cpf">CPF:</label>
-                                <input required="required" type="text" class="form-control" id="Cpf" name="Cpf" placeholder="Ex.: 010.011.111-00" maxlength="14">
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="Nome">Nome:</label>
-                                <input required="required" type="text" class="form-control" id="Nome" name="Nome" placeholder="Ex.: João" maxlength="50">
-                            </div>
-                        </div>
-                        <div class="col-md-2 pull-left" style="margin-top:26px;">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-sm btn-success salvarBeneficiario">Salvar</button>
-                            </div>
+<form id="formBeneficiario" method="post">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Beneficiários</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" id="IdCliente" name="IdCliente" value="IdCliente">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="Cpf">CPF:</label>
+                            <input required="required" type="text" class="form-control" id="Cpf" name="Cpf" placeholder="Ex.: 010.011.111-00" maxlength="14">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="Nome">Nome:</label>
+                            <input required="required" type="text" class="form-control" id="Nome" name="Nome" placeholder="Ex.: João" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="col-md-2 pull-left" style="margin-top:26px;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-success salvarBeneficiario">Salvar</button>
+                        </div>
                     </div>
                 </div>
+                <div>
+                    <table class="table">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Cpf)</th>
+                            <th>@Html.DisplayNameFor(model => model.Nome) </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Cpf)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                                <td class="text-right">
+                                    @Html.ActionLink("Editar", "EditBeneficiario", "Cliente", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
+                                    @Html.ActionLink("Deletar", "DeleteBeneficiario", "Cliente", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+
             </div>
         </div>
-    </form>
+    </div>
+
+</form>
+
+
